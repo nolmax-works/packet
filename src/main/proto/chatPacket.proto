@@ -19,7 +19,6 @@ message AuthRequest {
 
 message AuthResponse {
   int32 error_code = 1;
-  string token = 2;
 }
 
 // from client to server section
