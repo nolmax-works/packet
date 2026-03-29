@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+option java_package = "com.qtpc.tech.nolmax.proto";
+option java_outer_classname = "ChatProtos";
+option java_multiple_files = true;
+
+package chat;
+
+message ChatPacket {
+  oneof payload {
+    AuthRequest auth_request = 1;
+    AuthResponse auth_response = 2;
+  }
+}
+
+message AuthRequest {
+  string token = 1;
+}
+
+message AuthResponse {
+  int32 error_code = 1;
+  string token = 2;
+}
+
+// from client to server section
+// sender will be socket owner
+message AddFriendRequest {
+  int64 requestId = 1;
+}
+
+message CreateConversationRequest {
+  repeated int64 ids = 1;
+}
+
+message AddParticipant {
+  int64 conversation_id = 1;
+  repeated int64 ids = 2;
+}
+
+message KickParticipants {
+  int64 conversation_id = 1;
+  repeated int64 ids = 2;
+}
+
+message SendMessage {
+  string content = 1;
+  int64 conversation_id = 2;
+}
+
+message RemoveMessage { // check if owner message = sender message, if ok then hide
+  int64 conversation_id = 1;
+  int64 message_id = 2;
+}
+
+message AddReaction {
+  int32 reaction_id = 1;
+  int64 message_id = 2;
+}
+
+message RemoveReaction {
+  int32 reaction_id = 1;
+  int64 message_id = 2;
+}
+
+message RequestUpdate {
+  int64 last_update_id = 1;
+}
+
+// from server to client section
+// requirement: must know the owner of the socket. if offline, then DO NOT send
+
+// group A: Response packet from an interaction from the user
+
+message AddFriendResponse {
+  int32 error_id = 1;
+  int64 friend_id = 2;
+}
+
+message CreateConversationResponse {
+  int32 error_id = 1;
+  int64 conversation_id = 2;
+}
+
+message AddParticipantResponse {
+  int32 error_id = 1;
+  int64 conversation_id = 2;
+}
+
+message KickParticipantsResponse {
+  int32 error_id = 1;
+  int64 conversation_id = 2;
+}
+
+message SendMessageResponse {
+  int32 error_id = 1;
+  int64 message_id = 2;
+  int64 timestamp = 3;
+  int64 conversation_id = 4;
+}
+
+message RemoveMessageResponse {
+  int32 error_id = 1;
+  int64 message_id = 2;
+}
+
+message AddReactionResponse {
+  int32 error_id = 1;
+  int64 message_id = 2;
+  int32 reaction_id = 3;
+}
+
+message RemoveReactionResponse {
+  int32 error_id = 1;
+  int64 message_id = 2;
+  int32 reaction_id = 3;
+}
+
+// group B: update packet - send packet to user without interaction (in background, during startup, during reconnect...)
+// tbc
