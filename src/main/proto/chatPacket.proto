@@ -8,8 +8,19 @@ package chat;
 
 message ChatPacket {
   oneof payload {
+    // authentication
     AuthRequest auth_request = 1;
     AuthResponse auth_response = 2;
+
+    // conversation-related packets
+    CreateConversationRequest create_conversation_request = 3;
+    CreateConversationResponse create_conversation_response = 4;
+    UpdateConversationAvatarRequest update_conversation_avatar_request = 5;
+    UpdateConversationNameRequest update_conversation_name_request = 6;
+    UpdateConversationLastMessageRequest update_conversation_last_message_request = 7;
+    DeleteConversationRequest delete_conversation_request = 8;
+    PullConversationsRequest pull_conversations_request = 9;
+    PullConversationsResponse pull_conversations_response = 10;
   }
 }
 
