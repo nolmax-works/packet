@@ -13,6 +13,7 @@ message ChatPacket {
   }
 }
 
+// payloads for authenticaton
 message AuthRequest {
   string token = 1;
 }
@@ -21,98 +22,55 @@ message AuthResponse {
   int32 error_code = 1;
 }
 
-// from client to server section
-// sender will be socket owner
-message AddFriendRequest {
-  int64 requestId = 1;
+// payloads for conversation
+enum ConversationType {
+  PRIVATE = 0;
+  GROUP = 1;
+}
+
+message Conversation {
+  int64 id = 1;
+  ConversationType type = 2;
+  string name = 3;
+  string avatar_url = 4;
+  int64 created_by = 5;
+  int64 update_id = 6;
+  int64 last_message_id = 7;
 }
 
 message CreateConversationRequest {
-  repeated int64 ids = 1;
-}
-
-message AddParticipant {
-  int64 conversation_id = 1;
-  repeated int64 ids = 2;
-}
-
-message KickParticipants {
-  int64 conversation_id = 1;
-  repeated int64 ids = 2;
-}
-
-message SendMessage {
-  string content = 1;
-  int64 conversation_id = 2;
-}
-
-message RemoveMessage { // check if owner message = sender message, if ok then hide
-  int64 conversation_id = 1;
-  int64 message_id = 2;
-}
-
-message AddReaction {
-  int32 reaction_id = 1;
-  int64 message_id = 2;
-}
-
-message RemoveReaction {
-  int32 reaction_id = 1;
-  int64 message_id = 2;
-}
-
-message RequestUpdate {
-  int64 last_update_id = 1;
-}
-
-// from server to client section
-// requirement: must know the owner of the socket. if offline, then DO NOT send
-
-// group A: Response packet from an interaction from the user
-
-message AddFriendResponse {
-  int32 error_id = 1;
-  int64 friend_id = 2;
+  Conversation conversation = 1;
 }
 
 message CreateConversationResponse {
-  int32 error_id = 1;
-  int64 conversation_id = 2;
+  bool success = 1;
+  Conversation conversation = 2;
 }
 
-message AddParticipantResponse {
-  int32 error_id = 1;
-  int64 conversation_id = 2;
+message UpdateConversationAvatarRequest {
+  int64 id = 1;
+  string avatar_url = 2;
 }
 
-message KickParticipantsResponse {
-  int32 error_id = 1;
-  int64 conversation_id = 2;
+message UpdateConversationNameRequest {
+  int64 id = 1;
+  string name = 2;
 }
 
-message SendMessageResponse {
-  int32 error_id = 1;
-  int64 message_id = 2;
-  int64 timestamp = 3;
-  int64 conversation_id = 4;
-}
-
-message RemoveMessageResponse {
-  int32 error_id = 1;
+message UpdateConversationLastMessageRequest {
+  int64 id = 1;
   int64 message_id = 2;
 }
 
-message AddReactionResponse {
-  int32 error_id = 1;
-  int64 message_id = 2;
-  int32 reaction_id = 3;
+message DeleteConversationRequest {
+  int64 id = 1;
 }
 
-message RemoveReactionResponse {
-  int32 error_id = 1;
-  int64 message_id = 2;
-  int32 reaction_id = 3;
+message PullConversationsRequest {
+  int64 user_id = 1;
+  int64 last_update_id = 2;
 }
 
-// group B: update packet - send packet to user without interaction (in background, during startup, during reconnect...)
-// tbc
+message PullConversationsResponse {
+  repeated Conversation conversations = 1;
+}
