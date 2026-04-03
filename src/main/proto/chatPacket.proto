@@ -25,6 +25,12 @@ message ChatPacket {
     DeleteConversationResponse delete_conversation_response = 12;
     PullConversationsRequest pull_conversations_request = 13;
     PullConversationsResponse pull_conversations_response = 14;
+
+    // message-related packets
+    CreateMessageRequest create_message_request = 15;
+    CreateMessageResponse create_message_response = 16;
+    PullMessagesRequest pull_messages_request = 17;
+    PullMessagesResponse pull_messages_response = 18;
   }
 }
 
