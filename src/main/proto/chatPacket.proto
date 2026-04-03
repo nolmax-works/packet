@@ -40,7 +40,7 @@ message AuthRequest {
 }
 
 message AuthResponse {
-  int64 error_code = 1;
+  int32 error_code = 1;
 }
 
 // payloads for conversation
@@ -64,7 +64,7 @@ message CreateConversationRequest {
 }
 
 message CreateConversationResponse {
-  int64 error_code = 1;
+  int32 error_code = 1;
   bool success = 2;
   Conversation conversation = 3;
 }
@@ -75,7 +75,7 @@ message UpdateConversationAvatarRequest {
 }
 
 message UpdateConversationAvatarResponse {
-  int64 error_code = 1;
+  int32 error_code = 1;
 }
 
 message UpdateConversationNameRequest {
@@ -84,7 +84,7 @@ message UpdateConversationNameRequest {
 }
 
 message UpdateConversationNameResponse {
-  int64 error_code = 1;
+  int32 error_code = 1;
 }
 
 message UpdateConversationLastMessageRequest {
@@ -93,7 +93,7 @@ message UpdateConversationLastMessageRequest {
 }
 
 message UpdateConversationLastMessageResponse {
-  int64 error_code = 1;
+  int32 error_code = 1;
 }
 
 message DeleteConversationRequest {
@@ -101,7 +101,7 @@ message DeleteConversationRequest {
 }
 
 message DeleteConversationResponse {
-  int64 error_code = 1;
+  int32 error_code = 1;
 }
 
 message PullConversationsRequest {
@@ -110,7 +110,8 @@ message PullConversationsRequest {
 }
 
 message PullConversationsResponse {
-  repeated Conversation conversations = 1;
+  int32 error_code = 1;
+  repeated Conversation conversations = 2;
 }
 
 message Message {
@@ -128,7 +129,7 @@ message CreateMessageRequest {
 }
 
 message CreateMessageResponse {
-  bool success = 1;
+  int32 error_code = 1;
   Message message = 2;
 }
 
@@ -138,5 +139,6 @@ message PullMessagesRequest {
 }
 
 message PullMessagesResponse {
-  repeated Message messages = 1;
+  int32 error_code = 1;
+  repeated Message messages = 2;
 }
