@@ -31,6 +31,18 @@ message ChatPacket {
     CreateMessageResponse create_message_response = 16;
     PullMessagesRequest pull_messages_request = 17;
     PullMessagesResponse pull_messages_response = 18;
+
+    // participant-related packets
+    JoinConversationRequest join_conversation_request = 19;
+    JoinConversationResponse join_conversation_response = 20;
+    LeaveConversationRequest leave_conversation_request = 21;
+    LeaveConversationResponse leave_conversation_response = 22;
+    UpdateParticipantRoleRequest update_participant_role_request = 23;
+    UpdateParticipantRoleResponse update_participant_role_response = 24;
+    UpdateLastReadMessageRequest update_last_read_message_request = 25;
+    UpdateLastReadMessageResponse update_last_read_message_response = 26;
+    PullParticipantsRequest pull_participants_request = 27;
+    PullParticipantsResponse pull_participants_response = 28;
   }
 }
 
@@ -114,6 +126,7 @@ message PullConversationsResponse {
   repeated Conversation conversations = 2;
 }
 
+// payloads for messages
 message Message {
   int64 id = 1;
   int64 conversation_id = 2;
@@ -141,4 +154,70 @@ message PullMessagesRequest {
 message PullMessagesResponse {
   int32 error_code = 1;
   repeated Message messages = 2;
+}
+
+// payloads for participants
+enum ParticipantRole {
+  PARTICIPANT_ROLE_UNSPECIFIED = 0;
+  MEMBER = 1;
+  ADMIN = 2;
+}
+
+message Participant {
+  int64 conversation_id = 1;
+  int64 user_id = 2;
+  ParticipantRole role = 3;
+  string joined_at = 4;
+  string left_at = 5;
+  int64 last_read_message_id = 6;
+  int64 update_id = 7;
+}
+
+message JoinConversationRequest {
+  int64 conversation_id = 1;
+  int64 user_id = 2;
+  ParticipantRole role = 3;
+}
+
+message JoinConversationResponse {
+  int32 error_code = 1;
+}
+
+message LeaveConversationRequest {
+  int64 conversation_id = 1;
+  int64 user_id = 2;
+}
+
+message LeaveConversationResponse {
+  int32 error_code = 1;
+}
+
+message UpdateParticipantRoleRequest {
+  int64 conversation_id = 1;
+  int64 user_id = 2;
+  ParticipantRole role = 3;
+}
+
+message UpdateParticipantRoleResponse {
+  int32 error_code = 1;
+}
+
+message UpdateLastReadMessageRequest {
+  int64 conversation_id = 1;
+  int64 user_id = 2;
+  int64 message_id = 3;
+}
+
+message UpdateLastReadMessageResponse {
+  int32 error_code = 1;
+}
+
+message PullParticipantsRequest {
+  int64 conversation_id = 1;
+  int64 last_update_id = 2;
+}
+
+message PullParticipantsResponse {
+  int32 error_code = 1;
+  repeated Participant participants = 2;
 }
