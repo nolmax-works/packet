@@ -16,11 +16,15 @@ message ChatPacket {
     CreateConversationRequest create_conversation_request = 3;
     CreateConversationResponse create_conversation_response = 4;
     UpdateConversationAvatarRequest update_conversation_avatar_request = 5;
-    UpdateConversationNameRequest update_conversation_name_request = 6;
-    UpdateConversationLastMessageRequest update_conversation_last_message_request = 7;
-    DeleteConversationRequest delete_conversation_request = 8;
-    PullConversationsRequest pull_conversations_request = 9;
-    PullConversationsResponse pull_conversations_response = 10;
+    UpdateConversationAvatarResponse update_conversation_avatar_response = 6;
+    UpdateConversationNameRequest update_conversation_name_request = 7;
+    UpdateConversationNameResponse update_conversation_name_response = 8;
+    UpdateConversationLastMessageRequest update_conversation_last_message_request = 9;
+    UpdateConversationLastMessageResponse update_conversation_last_message_response = 10;
+    DeleteConversationRequest delete_conversation_request = 11;
+    DeleteConversationResponse delete_conversation_response = 12;
+    PullConversationsRequest pull_conversations_request = 13;
+    PullConversationsResponse pull_conversations_response = 14;
   }
 }
 
@@ -30,7 +34,7 @@ message AuthRequest {
 }
 
 message AuthResponse {
-  int32 error_code = 1;
+  int64 error_code = 1;
 }
 
 // payloads for conversation
@@ -54,8 +58,9 @@ message CreateConversationRequest {
 }
 
 message CreateConversationResponse {
-  bool success = 1;
-  Conversation conversation = 2;
+  int64 error_code = 1;
+  bool success = 2;
+  Conversation conversation = 3;
 }
 
 message UpdateConversationAvatarRequest {
@@ -63,9 +68,17 @@ message UpdateConversationAvatarRequest {
   string avatar_url = 2;
 }
 
+message UpdateConversationAvatarResponse {
+  int64 error_code = 1;
+}
+
 message UpdateConversationNameRequest {
   int64 id = 1;
   string name = 2;
+}
+
+message UpdateConversationNameResponse {
+  int64 error_code = 1;
 }
 
 message UpdateConversationLastMessageRequest {
@@ -73,8 +86,16 @@ message UpdateConversationLastMessageRequest {
   int64 message_id = 2;
 }
 
+message UpdateConversationLastMessageResponse {
+  int64 error_code = 1;
+}
+
 message DeleteConversationRequest {
   int64 id = 1;
+}
+
+message DeleteConversationResponse {
+  int64 error_code = 1;
 }
 
 message PullConversationsRequest {
