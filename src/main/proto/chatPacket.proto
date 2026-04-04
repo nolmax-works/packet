@@ -32,26 +32,28 @@ message ChatPacket {
     CreateMessageResponse create_message_response = 16;
     PullMessagesRequest pull_messages_request = 17;
     PullMessagesResponse pull_messages_response = 18;
+    PullUpdateComboRequest pull_update_combo_request = 19;
+    PullUpdateComboResponse pull_update_combo_response = 20;
 
     // participant-related packets
-    JoinConversationRequest join_conversation_request = 19;
-    JoinConversationResponse join_conversation_response = 20;
-    LeaveConversationRequest leave_conversation_request = 21;
-    LeaveConversationResponse leave_conversation_response = 22;
-    UpdateParticipantRoleRequest update_participant_role_request = 23;
-    UpdateParticipantRoleResponse update_participant_role_response = 24;
-    UpdateLastReadMessageRequest update_last_read_message_request = 25;
-    UpdateLastReadMessageResponse update_last_read_message_response = 26;
-    PullParticipantsRequest pull_participants_request = 27;
-    PullParticipantsResponse pull_participants_response = 28;
+    JoinConversationRequest join_conversation_request = 21;
+    JoinConversationResponse join_conversation_response = 22;
+    LeaveConversationRequest leave_conversation_request = 23;
+    LeaveConversationResponse leave_conversation_response = 24;
+    UpdateParticipantRoleRequest update_participant_role_request = 25;
+    UpdateParticipantRoleResponse update_participant_role_response = 26;
+    UpdateLastReadMessageRequest update_last_read_message_request = 27;
+    UpdateLastReadMessageResponse update_last_read_message_response = 28;
+    PullParticipantsRequest pull_participants_request = 29;
+    PullParticipantsResponse pull_participants_response = 30;
 
     // user-related packets
-    UpdateUserAvatarRequest update_user_avatar_request = 29;
-    UpdateUserAvatarResponse update_user_avatar_response = 30;
-    PullUsersRequest pull_users_request = 31;
-    PullUsersResponse pull_users_response = 32;
-    LogoutRequest logout_request = 33;
-    LogoutResponse logout_response = 34;
+    UpdateUserAvatarRequest update_user_avatar_request = 31;
+    UpdateUserAvatarResponse update_user_avatar_response = 32;
+    PullUsersRequest pull_users_request = 33;
+    PullUsersResponse pull_users_response = 34;
+    LogoutRequest logout_request = 35;
+    LogoutResponse logout_response = 36;
   }
 }
 
@@ -86,8 +88,7 @@ message CreateConversationRequest {
 
 message CreateConversationResponse {
   int32 error_code = 1;
-  bool success = 2;
-  Conversation conversation = 3;
+  Conversation conversation = 2;
 }
 
 message UpdateConversationAvatarRequest {
@@ -133,6 +134,18 @@ message PullConversationsRequest {
 message PullConversationsResponse {
   int32 error_code = 1;
   repeated Conversation conversations = 2;
+}
+
+message PullUpdateComboRequest {
+  int64 last_update_id = 1;
+}
+
+message PullUpdateComboResponse {
+  int32 error_code = 1;
+  repeated Message messages = 2;
+  repeated Participant participants = 3;
+  repeated User users = 4;
+  repeated Conversation conversations = 5;
 }
 
 // payloads for messages
