@@ -44,6 +44,14 @@ message ChatPacket {
     UpdateLastReadMessageResponse update_last_read_message_response = 26;
     PullParticipantsRequest pull_participants_request = 27;
     PullParticipantsResponse pull_participants_response = 28;
+
+    // user-related packets
+    UpdateUserAvatarRequest update_user_avatar_request = 29;
+    UpdateUserAvatarResponse update_user_avatar_response = 30;
+    PullUsersRequest pull_users_request = 31;
+    PullUsersResponse pull_users_response = 32;
+    LogoutRequest logout_request = 33;
+    LogoutResponse logout_response = 34;
   }
 }
 
@@ -220,4 +228,37 @@ message PullParticipantsRequest {
 message PullParticipantsResponse {
   int32 error_code = 1;
   repeated Participant participants = 2;
+}
+
+// payloads for user (excluding register and token request as it is handled by authAPI)
+message User {
+  int64 id = 1;
+  string username = 2;
+  string avatar_url = 3;
+  int64 update_id = 4;
+}
+
+message UpdateUserAvatarRequest {
+  int64 id = 1;
+  string avatar_url = 2;
+}
+
+message UpdateUserAvatarResponse {
+  int32 error_code = 1;
+}
+
+message PullUsersRequest {
+  int64 conversation_id = 1;
+  int64 last_update_id = 2;
+}
+
+message PullUsersResponse {
+  int32 error_code = 1;
+  repeated User users = 2;
+}
+
+message LogoutRequest {} // blank packet
+
+message LogoutResponse {
+  int32 error_code = 1;
 }
