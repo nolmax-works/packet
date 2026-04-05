@@ -24,33 +24,36 @@ message ChatPacket {
     DeleteConversationResponse delete_conversation_response = 10;
     PullConversationsRequest pull_conversations_request = 11;
     PullConversationsResponse pull_conversations_response = 12;
+    UpdateBroadcastConversation update_broadcast_conversation = 13;
 
     // message-related packets
-    CreateMessageRequest create_message_request = 13;
-    CreateMessageResponse create_message_response = 14;
-    PullMessagesRequest pull_messages_request = 15;
-    PullMessagesResponse pull_messages_response = 16;
-    PullUpdateComboRequest pull_update_combo_request = 17;
-    PullUpdateComboResponse pull_update_combo_response = 18;
-    BroadcastMessageOnline broadcast_message_online = 19;
+    CreateMessageRequest create_message_request = 14;
+    CreateMessageResponse create_message_response = 15;
+    PullMessagesRequest pull_messages_request = 16;
+    PullMessagesResponse pull_messages_response = 17;
+    PullUpdateComboRequest pull_update_combo_request = 18;
+    PullUpdateComboResponse pull_update_combo_response = 19;
+    BroadcastMessageOnline broadcast_message_online = 20;
 
     // participant-related packets
-    JoinConversationRequest join_conversation_request = 20;
-    JoinConversationResponse join_conversation_response = 21;
-    LeaveConversationRequest leave_conversation_request = 22;
-    LeaveConversationResponse leave_conversation_response = 23;
-    UpdateParticipantRoleRequest update_participant_role_request = 24;
-    UpdateParticipantRoleResponse update_participant_role_response = 25;
-    PullParticipantsRequest pull_participants_request = 26;
-    PullParticipantsResponse pull_participants_response = 27;
+    JoinConversationRequest join_conversation_request = 21;
+    JoinConversationResponse join_conversation_response = 22;
+    LeaveConversationRequest leave_conversation_request = 23;
+    LeaveConversationResponse leave_conversation_response = 24;
+    UpdateParticipantRoleRequest update_participant_role_request = 25;
+    UpdateParticipantRoleResponse update_participant_role_response = 26;
+    PullParticipantsRequest pull_participants_request = 27;
+    PullParticipantsResponse pull_participants_response = 28;
+    UpdateBroadcastParticipant update_broadcast_participant = 29;
 
     // user-related packets
-    UpdateUserAvatarRequest update_user_avatar_request = 28;
-    UpdateUserAvatarResponse update_user_avatar_response = 29;
-    PullUsersRequest pull_users_request = 30;
-    PullUsersResponse pull_users_response = 31;
-    LogoutRequest logout_request = 32;
-    LogoutResponse logout_response = 33;
+    UpdateUserAvatarRequest update_user_avatar_request = 30;
+    UpdateUserAvatarResponse update_user_avatar_response = 31;
+    PullUsersRequest pull_users_request = 32;
+    PullUsersResponse pull_users_response = 33;
+    LogoutRequest logout_request = 34;
+    LogoutResponse logout_response = 35;
+    UpdateBroadcastUser update_broadcast_user = 36;
   }
 }
 
@@ -134,6 +137,10 @@ message PullUpdateComboResponse {
   repeated Participant participants = 3;
   repeated User users = 4;
   repeated Conversation conversations = 5;
+}
+
+message UpdateBroadcastConversation {
+  Conversation conversation = 1;
 }
 
 // payloads for messages
@@ -224,6 +231,11 @@ message PullParticipantsResponse {
   repeated Participant participants = 2;
 }
 
+message UpdateBroadcastParticipant {
+  int32 action = 1; // 0 for deletion, 1 for addition
+  Participant participant = 2;
+}
+
 // payloads for user (excluding register and token request as it is handled by authAPI)
 message User {
   int64 id = 1;
@@ -249,6 +261,10 @@ message PullUsersRequest {
 message PullUsersResponse {
   int32 error_code = 1;
   repeated User users = 2;
+}
+
+message UpdateBroadcastUser {
+  User user = 1;
 }
 
 message LogoutRequest {} // blank packet
