@@ -140,7 +140,8 @@ message PullUpdateComboResponse {
 }
 
 message UpdateBroadcastConversation {
-  Conversation conversation = 1;
+  int32 action = 1; // 0 for deletion, 1 for addition, 2 for updating name, 3 for updating avatar
+  Conversation conversation = 2;
 }
 
 // payloads for messages
