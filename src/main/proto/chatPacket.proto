@@ -19,7 +19,7 @@ message ChatPacket {
     UpdateConversationAvatarRequest update_conversation_avatar_request = 5;
     UpdateConversationAvatarResponse update_conversation_avatar_response = 6;
     UpdateConversationNameRequest update_conversation_name_request = 7;
-    UpdateConversationNameResponse update_conversation_name_call = 8;
+    UpdateConversationNameResponse update_conversation_name_response = 8;
     DeleteConversationRequest delete_conversation_request = 9;
     DeleteConversationResponse delete_conversation_response = 10;
     PullConversationsRequest pull_conversations_request = 11;
