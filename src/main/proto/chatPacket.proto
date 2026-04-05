@@ -19,42 +19,38 @@ message ChatPacket {
     UpdateConversationAvatarRequest update_conversation_avatar_request = 5;
     UpdateConversationAvatarResponse update_conversation_avatar_response = 6;
     UpdateConversationNameRequest update_conversation_name_request = 7;
-    UpdateConversationNameResponse update_conversation_name_response = 8;
-    UpdateConversationLastMessageRequest update_conversation_last_message_request = 9;
-    UpdateConversationLastMessageResponse update_conversation_last_message_response = 10;
-    DeleteConversationRequest delete_conversation_request = 11;
-    DeleteConversationResponse delete_conversation_response = 12;
-    PullConversationsRequest pull_conversations_request = 13;
-    PullConversationsResponse pull_conversations_response = 14;
+    UpdateConversationNameResponse update_conversation_name_call = 8;
+    DeleteConversationRequest delete_conversation_request = 9;
+    DeleteConversationResponse delete_conversation_response = 10;
+    PullConversationsRequest pull_conversations_request = 11;
+    PullConversationsResponse pull_conversations_response = 12;
 
     // message-related packets
-    CreateMessageRequest create_message_request = 15;
-    CreateMessageResponse create_message_response = 16;
-    PullMessagesRequest pull_messages_request = 17;
-    PullMessagesResponse pull_messages_response = 18;
-    PullUpdateComboRequest pull_update_combo_request = 19;
-    PullUpdateComboResponse pull_update_combo_response = 20;
-    BroadcastMessageOnline broadcast_message_online = 21;
+    CreateMessageRequest create_message_request = 13;
+    CreateMessageResponse create_message_response = 14;
+    PullMessagesRequest pull_messages_request = 15;
+    PullMessagesResponse pull_messages_response = 16;
+    PullUpdateComboRequest pull_update_combo_request = 17;
+    PullUpdateComboResponse pull_update_combo_response = 18;
+    BroadcastMessageOnline broadcast_message_online = 19;
 
     // participant-related packets
-    JoinConversationRequest join_conversation_request = 22;
-    JoinConversationResponse join_conversation_response = 23;
-    LeaveConversationRequest leave_conversation_request = 24;
-    LeaveConversationResponse leave_conversation_response = 25;
-    UpdateParticipantRoleRequest update_participant_role_request = 26;
-    UpdateParticipantRoleResponse update_participant_role_response = 27;
-    UpdateLastReadMessageRequest update_last_read_message_request = 28;
-    UpdateLastReadMessageResponse update_last_read_message_response = 29;
-    PullParticipantsRequest pull_participants_request = 30;
-    PullParticipantsResponse pull_participants_response = 31;
+    JoinConversationRequest join_conversation_request = 20;
+    JoinConversationResponse join_conversation_response = 21;
+    LeaveConversationRequest leave_conversation_request = 22;
+    LeaveConversationResponse leave_conversation_response = 23;
+    UpdateParticipantRoleRequest update_participant_role_request = 24;
+    UpdateParticipantRoleResponse update_participant_role_response = 25;
+    PullParticipantsRequest pull_participants_request = 26;
+    PullParticipantsResponse pull_participants_response = 27;
 
     // user-related packets
-    UpdateUserAvatarRequest update_user_avatar_request = 32;
-    UpdateUserAvatarResponse update_user_avatar_response = 33;
-    PullUsersRequest pull_users_request = 34;
-    PullUsersResponse pull_users_response = 35;
-    LogoutRequest logout_request = 36;
-    LogoutResponse logout_response = 37;
+    UpdateUserAvatarRequest update_user_avatar_request = 28;
+    UpdateUserAvatarResponse update_user_avatar_response = 29;
+    PullUsersRequest pull_users_request = 30;
+    PullUsersResponse pull_users_response = 31;
+    LogoutRequest logout_request = 32;
+    LogoutResponse logout_response = 33;
   }
 }
 
@@ -107,15 +103,6 @@ message UpdateConversationNameRequest {
 }
 
 message UpdateConversationNameResponse {
-  int32 error_code = 1;
-}
-
-message UpdateConversationLastMessageRequest {
-  int64 id = 1;
-  int64 message_id = 2;
-}
-
-message UpdateConversationLastMessageResponse {
   int32 error_code = 1;
 }
 
@@ -224,16 +211,6 @@ message UpdateParticipantRoleRequest {
 }
 
 message UpdateParticipantRoleResponse {
-  int32 error_code = 1;
-}
-
-message UpdateLastReadMessageRequest {
-  int64 conversation_id = 1;
-  int64 user_id = 2;
-  int64 message_id = 3;
-}
-
-message UpdateLastReadMessageResponse {
   int32 error_code = 1;
 }
 

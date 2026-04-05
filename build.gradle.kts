@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.qtpc.tech.nolmax"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
