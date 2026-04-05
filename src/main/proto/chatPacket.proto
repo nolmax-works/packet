@@ -232,7 +232,7 @@ message PullParticipantsResponse {
 }
 
 message UpdateBroadcastParticipant {
-  int32 action = 1; // 0 for deletion, 1 for addition
+  int32 action = 1; // 0 for deletion, 1 for addition, 2 for updating role
   Participant participant = 2;
 }
 
