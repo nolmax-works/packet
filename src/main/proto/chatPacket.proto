@@ -58,6 +58,10 @@ message ChatPacket {
     // search-related packet
     UsernameSearchRequest search_request = 37;
     UsernameSearchResponse search_response = 38;
+
+    // keepalive packets
+    KeepaliveRequest keepalive_request = 39;
+    KeepaliveResponse keepalive_response = 40;
   }
 }
 
@@ -286,3 +290,8 @@ message UsernameSearchResponse {
   int32 error_code = 1;
   User user = 2;
 }
+
+// keepalive
+message KeepaliveRequest {}
+
+message KeepaliveResponse {}
